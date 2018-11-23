@@ -74,3 +74,41 @@ function annoterTweetsNew($tweets)
 	// supprimer la redandance des infos
 	return array_map("unserialize", array_unique(array_map("serialize", $data)));
 }
+
+
+// Get random tweets
+function getRandomAnnotedTweets($tweets,$nboftts=1,$counter_start=1)
+{
+	// Get random first N Tweets
+	shuffle($tweets['mixte']);
+	$mixte = array_slice($tweets['mixte'], 0,$nboftts);
+	
+	shuffle($tweets['negatif']);
+	$negatif = array_slice($tweets['negatif'], 0,$nboftts);
+	
+	shuffle($tweets['positif']);
+	$positif = array_slice($tweets['positif'], 0,$nboftts);
+	
+	shuffle($tweets['autre']);
+	$autre = array_slice($tweets['autre'], 0,$nboftts);
+
+	// Merge tweets by polarity
+	$tweets_merged=array_merge($mixte,$negatif,$positif,$autre);
+
+	// Randomize tweets
+	shuffle($tweets_merged);
+
+	$text_data="";
+	foreach ($tweets_merged as $key => $value) {
+		if ($counter_start==1) {
+			$text_data.=$counter_start.$value;		
+		}else{
+			$text_data.="\n". $counter_start.$value;
+		}
+		$counter_start++;
+	}
+
+	return $text_data;
+}
+
+
