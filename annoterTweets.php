@@ -5,14 +5,14 @@
 $tweets=getTweetsByFile("data/unlabeled.xml");
 
 //Get Annoted tweets array
-$annoted_tweets = annoterTweetsNew($tweets);
+$annoted_tweets = annoterTweetsOld($tweets);
 
 $min_number_of_tweets=getMinCountArrays($annoted_tweets);
 // Get random tweets by polarity
 $data=getRandomAnnotedTweets($annoted_tweets,$min_number_of_tweets,1);
 
 // Create annoted files
-echo file_put_contents("/var/www/html/analyse-des-sentiments-full/data/labeled.txt",$data);
+echo file_put_contents("/var/www/html/analyse-des-sentiments-full/data/labeled_old.txt",$data);
 
 
 
