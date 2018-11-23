@@ -37,3 +37,40 @@ function getPolarityByTweet($tweet)
 
 	return 'autre';
 }
+
+
+// Annoter les tweets 1
+function annoterTweetsOld($tweets)
+{
+	$data=[
+		"mixte"=>[],
+		"negatif"=>[],
+		"positif"=>[],
+		"autre"=>[],
+	];
+	foreach ($tweets as $key => $value) {
+		if ($polarity=getPolarityByTweet($value)) {
+			array_push($data[$polarity], "	".$value['message']."	".$polarity);
+		}
+	}
+	// supprimer la redandance des infos
+	return array_map("unserialize", array_unique(array_map("serialize", $data)));
+}
+
+// Annoter les tweets 2
+function annoterTweetsNew($tweets)
+{
+	$data=[
+		"mixte"=>[],
+		"negatif"=>[],
+		"positif"=>[],
+		"autre"=>[],
+	];
+	foreach ($tweets as $key => $value) {
+		if ($polarity=getPolarityByTweet($value)) {
+			array_push($data[$polarity], getTweetIdByUrl($value['url'])." ".$polarity);
+		}
+	}
+	// supprimer la redandance des infos
+	return array_map("unserialize", array_unique(array_map("serialize", $data)));
+}
