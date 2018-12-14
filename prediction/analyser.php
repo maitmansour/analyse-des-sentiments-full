@@ -14,7 +14,7 @@ while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 fclose($file);
 $train_limit=count($full_data)-1;
 
-$file = fopen('data/task1-testGold.csv', 'r');
+$file = fopen('data/task2-testGold.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
 		$line = array_map('strtolower', $line);
@@ -28,9 +28,6 @@ foreach ($full_data as $keyFD => $valueFD) {
 	$tmp_words=explode(" ", $valueFD[1]);
 
 	switch ($valueFD[2]) {
-		case 'objective':
-			$label="0";
-			break;
 		case 'positive':
 			$label="1";
 			break;
@@ -41,7 +38,8 @@ foreach ($full_data as $keyFD => $valueFD) {
 			$label="3";
 			break;
 		default:
-			continue;
+			$label="0";
+			break;
 	}
 
 	$tmp_pair="";
@@ -71,9 +69,9 @@ foreach ($full_data as $keyFD => $valueFD) {
 	$tmp_pair=implode(" ", $tmp_pairs_array);
 	$tmp_contents.=$label." ".$tmp_pair."\n";
 	if($keyFD==$train_limit){
-		echo file_put_contents("/var/www/html/analyse-des-sentiments/output/train.svm",$tmp_contents);
+		echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/output/train.svm",$tmp_contents);
 		$tmp_contents="";
 	}
 }
 
-		echo file_put_contents("/var/www/html/analyse-des-sentiments/output/test.svm",$tmp_contents);
+		echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/output/test.svm",$tmp_contents);
