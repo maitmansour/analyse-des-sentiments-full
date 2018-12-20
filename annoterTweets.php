@@ -7,7 +7,7 @@ $tweets=getTweetsByFile("data/unlabeled.xml");
 //Get Annoted tweets array
 $annoted_tweets = annoterTweetsOld($tweets);
 
-$min_number_of_tweets=getMinCountArrays($annoted_tweets);
+$min_number_of_tweets=/*getMinCountArrays($annoted_tweets)*/0;
 // Get random tweets by polarity
 $data=getRandomAnnotedTweets($annoted_tweets,$min_number_of_tweets,1);
 
@@ -89,6 +89,13 @@ function annoterTweetsNew($tweets)
 // Get random tweets
 function getRandomAnnotedTweets($tweets,$nboftts=1,$counter_start=1)
 {
+	if ($nboftts==0) {
+		$mixte=$tweets['mixte'];
+		$negatif=$tweets['negatif'];
+		$positif=$tweets['positif'];
+		$autre=$tweets['autre'];
+	}else{
+
 	// Get random first N Tweets
 	shuffle($tweets['mixte']);
 	$mixte = array_slice($tweets['mixte'], 0,$nboftts);
@@ -101,6 +108,8 @@ function getRandomAnnotedTweets($tweets,$nboftts=1,$counter_start=1)
 	
 	shuffle($tweets['autre']);
 	$autre = array_slice($tweets['autre'], 0,$nboftts);
+
+	}
 
 	// Merge tweets by polarity
 	$tweets_merged=array_merge($mixte,$negatif,$positif,$autre);

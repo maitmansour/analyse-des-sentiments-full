@@ -3,8 +3,8 @@ echo "START PREDCT SCRIPT"
 echo "DELETING OLD FILES"
 rm output/test.svm
 rm output/train.svm
-rm result/model.svm
-rm result/predict.svm
+rm result/model
+rm result/predict
 rm result/result.txt
 
 echo "ADD LINE NUMBERS"
