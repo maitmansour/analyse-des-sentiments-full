@@ -1,0 +1,6 @@
+data/labeled_old.txt
+prediction/data/task1-train.csv
+prediction/output/test.svm
+prediction/output/train.svm
+prediction/result/model
+prediction/result/predect
