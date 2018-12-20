@@ -4,7 +4,7 @@ $full_data=[];
 
 $file = fopen('data/task1-testGold.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
-		$line = array_map('strtolower', $line);
+		//$line = array_map('strtolower', $line);
 		array_push($full_data, $line);
   }
 fclose($file);
@@ -17,4 +17,4 @@ foreach ($full_data as $keyFD => $valueFD) {
 	$tmp_contents.=$number++."\t".$tmp_pair."\t"."objective"."\n";
 }
 
-		echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/data/task2-testGold.csv",$tmp_contents);
+		echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/data/step1.csv",$tmp_contents);

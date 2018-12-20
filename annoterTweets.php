@@ -60,7 +60,7 @@ function annoterTweetsOld($tweets)
 	];
 	foreach ($tweets as $key => $value) {
 		if ($polarity=getPolarityByTweet($value)) {
-			array_push($data[$polarity], "	".$value['message']."	".$polarity);
+			array_push($data[$polarity], "\t".$value['message']."\t".$polarity);
 		}
 	}
 	// supprimer la redandance des infos

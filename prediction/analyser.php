@@ -7,17 +7,17 @@ $train_limit=0;
 $file = fopen('data/task1-train.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		$line = array_map('strtolower', $line);
+		//$line = array_map('strtolower', $line);
 		array_push($full_data, $line);
 	}
   }
 fclose($file);
 $train_limit=count($full_data)-1;
 
-$file = fopen('data/task2-testGold.csv', 'r');
+$file = fopen('data/step1.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		$line = array_map('strtolower', $line);
+		//$line = array_map('strtolower', $line);
 		array_push($full_data, $line);
 	}
   }
@@ -28,13 +28,13 @@ foreach ($full_data as $keyFD => $valueFD) {
 	$tmp_words=explode(" ", $valueFD[1]);
 
 	switch ($valueFD[2]) {
-		case 'positive':
+		case 'positif':
 			$label="1";
 			break;
-		case 'negative':
+		case 'negatif':
 			$label="2";
 			break;
-		case 'mixed':
+		case 'mixte':
 			$label="3";
 			break;
 		default:
