@@ -7,7 +7,9 @@ $train_limit=0;
 $file = fopen('data/task1-train.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		$line = array_map('strtolower', $line);
+		var_dump($line);
+		$line[1] = stringFormatter($line[1]);
+		var_dump($line); die;
 		array_push($full_data, $line);
 	}
   }
@@ -17,7 +19,8 @@ $train_limit=count($full_data)-1;
 $file = fopen('data/step1.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		$line = array_map('strtolower', $line);
+
+		$line[1] = stringFormatter($line[1]);
 		array_push($full_data, $line);
 	}
   }
@@ -75,3 +78,15 @@ foreach ($full_data as $keyFD => $valueFD) {
 }
 
 		echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/output/test.svm",$tmp_contents);
+
+
+
+function stringFormatter($string){
+	//  STR TO LOWER
+	$string= strtolower($string);
+
+	// delete ponctuation
+	$string = preg_replace('/[[:punct:]]/', ' ', $string);
+
+	return $string;
+}
