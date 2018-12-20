@@ -7,9 +7,7 @@ $train_limit=0;
 $file = fopen('data/task1-train.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		var_dump($line);
 		$line[1] = stringFormatter($line[1]);
-		var_dump($line); die;
 		array_push($full_data, $line);
 	}
   }
