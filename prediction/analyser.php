@@ -7,7 +7,7 @@ $train_limit=0;
 $file = fopen('data/task1-train.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		//$line = array_map('strtolower', $line);
+		$line = array_map('strtolower', $line);
 		array_push($full_data, $line);
 	}
   }
@@ -17,7 +17,7 @@ $train_limit=count($full_data)-1;
 $file = fopen('data/step1.csv', 'r');
 while (($line = fgetcsv($file,0,"\t")) !== FALSE) {
 	if (count($line)==3) {
-		//$line = array_map('strtolower', $line);
+		$line = array_map('strtolower', $line);
 		array_push($full_data, $line);
 	}
   }
