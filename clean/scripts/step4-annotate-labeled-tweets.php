@@ -1,6 +1,6 @@
 <?php
 
-
+ 
 // Get cleaned tweets
 $tweets=getCleanedTweets("../dataset/step3-clean-labeled-data.csv");
 
@@ -48,28 +48,10 @@ function mergeTweetsAndAnnotation($tweets,$annotations)
 {
 	$merged_data=[];
 	foreach ($tweets as $key => $value) {
-		$tmp_merge=$value."\t".$annotations[$key];
+		$tmp_merge=$value."\t".getCorrectAnnotation($annotations[$key]);
 			array_push($merged_data, $tmp_merge);
 	}
 	return $merged_data;
-}
-
-// Annotate Tweets
-function annotateTweets($tweets)
-{
-	$data=[
-		"mixte"=>[],
-		"negatif"=>[],
-		"positif"=>[],
-		"autre"=>[],
-	];
-	foreach ($tweets as $key => $value) {
-		if ($polarity=getPolarityByTweet($value)) {
-			array_push($data[$polarity], $value."\t".$polarity);
-		}
-	}
-	// delete redendant infos
-	return array_map("unserialize", array_unique(array_map("serialize", $data)));
 }
 
 // Get Annotated tweets as text
@@ -80,4 +62,21 @@ function getAnnotatedTweetsAsText($tweets)
 
 	return $text_data;
 
+}
+
+function getCorrectAnnotation($annotation){
+	switch ($annotation) {
+		case 'positive':
+			return "positif";
+			break;
+		
+		case 'negative':
+			return "negatif";
+			break;
+		
+		case 'mixed':
+			return "mixte";
+			break;
+	}
+			return "autre";
 }

@@ -106,7 +106,7 @@ function stringCleaner($string){
 " une ",
 " vos ",
 " votre ",
-"je",
+" je ",
 " tu ",
 " il ",
 " elle ",
@@ -121,14 +121,9 @@ function stringCleaner($string){
 " se ",
 " est ",
 " à ",
-"à ",
-" à",
 " ç ",
-"ç ",
 " ç",
-" é ",
-"é ",
-" é"];
+" é "];
 
 // Remove one charcter
 $string = preg_replace("@\b[a-z]{1}\b@m", " ", $string);

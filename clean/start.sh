@@ -11,56 +11,68 @@ echo "\nSTEP 0/ : DELETE OLD FILES\n"
 #rm -rf dataset/step6-unformated-test-data.csv
 #rm -rf dataset/step7-clean-test-data.csv
 #rm -rf dataset/step8-final-test-data.csv
-#rm -rf dataset/step7-clean-test-data.csv
 #rm -rf output/test.svm
 #rm -rf output/train.svm
 #rm -rf output/model
 #rm -rf output/predect
 #rm -rf result/result.txt
 
-echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
+
+echo "\nSTART EXECUTING SCRIPTS\n"
 cd scripts
+
+echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
 #php step1-clean-unlabeled-tweets.php
-cd ..
+
 
 
 echo "\nSTEP 2/ : ANNOTATE UNLABELED TWEETS\n"
-cd scripts
 #php step2-annotate-unlabeled-tweets.php
-cd ..
+
 
 echo "\nSTEP 3/ : CLEAN LABELED TWEETS\n"
-cd scripts
 #php step3-clean-labeled-tweets.php
-cd ..
+
 
 
 echo "\nSTEP 4/ : ANNOTATE LABELED TWEETS\n"
-cd scripts
 #php step4-annotate-labeled-tweets.php
-cd ..
+
 
 
 echo "\nSTEP 5/ : MERGE NEW AND OLD TWEETS AND ADD NUMBERS\n"
-cd scripts
 #php step5-merge-new-and-old-tweets.php
-cd ..
+
 
 
 echo "\nSTEP 6/ : FORMAT TEST DATA\n"
-cd scripts
 #php step6-format-test-data.php
-cd ..
+
 
 
 echo "\nSTEP 7/ : CLEAN TEST DATA\n"
-cd scripts
 #php step7-clean-test-data.php
-cd ..
+
 
 echo "\nSTEP 8/ : ADD NUMBERS AND ANNOTATION TO TEST DATA\n"
+#php step8-add-numbers-and-annotation-to-test-data.php
+
+echo "\nSTEP 9/ : PREPARE SVM FILES\n"
+#php step9-prepare-svm-files.php
+
+echo "\nSCRIPTS EXECUTED\n"
+cd ..
+
+echo "\nSTEP 10/ : TRAIN MODEL WITH LIBLINEAR\n"
+#libs/liblinear-2.21/train  -c 4 -e 0.1 -s 2 output/train.svm result/model
+
+
+echo "\nSTEP 10/ : PREDECT TEST ANNOTAION USING LIBLINEAR\n"
+#libs/liblinear-2.21/predict output/test.svm result/model result/predect
+
+echo "\nSTEP 11/ : FORMATING PREDECTED DATA\n"
 cd scripts
-php step8-add-numbers-and-annotation-to-test-data.php
+php step11-format-svm-predection.php
 cd ..
 
 #echo "RUN ANALYSER"
