@@ -3,15 +3,20 @@
 printf "START PREDICTION SCRIPT \n"
 
 echo "\nSTEP 0/ : DELETE OLD FILES\n"
-rm -rf dataset/auto-labeled-train.csv
-rm -rf dataset/already-annoted-data.csv
-rm -rf dataset/clean-labeled-data.csv
-rm -rf dataset/clean-data.csv
-rm -rf output/test.svm
-rm -rf output/train.svm
-rm -rf output/model
-rm -rf output/predect
-rm -rf result/result.txt
+#rm -rf dataset/step1-clean-unlabeled-data.csv
+#rm -rf dataset/step2-auto-annoted-data.csv
+#rm -rf dataset/step3-clean-labeled-data.csv
+#rm -rf dataset/step4-already-annoted-data.csv
+#rm -rf dataset/step5-final-train-data.csv
+#rm -rf dataset/step6-unformated-test-data.csv
+#rm -rf dataset/step7-clean-test-data.csv
+#rm -rf dataset/step8-final-test-data.csv
+#rm -rf dataset/step7-clean-test-data.csv
+#rm -rf output/test.svm
+#rm -rf output/train.svm
+#rm -rf output/model
+#rm -rf output/predect
+#rm -rf result/result.txt
 
 echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
 cd scripts
@@ -26,19 +31,36 @@ cd ..
 
 echo "\nSTEP 3/ : CLEAN LABELED TWEETS\n"
 cd scripts
-php step3-clean-labeled-tweets.php
+#php step3-clean-labeled-tweets.php
 cd ..
 
 
 echo "\nSTEP 4/ : ANNOTATE LABELED TWEETS\n"
 cd scripts
-php step4-annotate-labeled-tweets.php
+#php step4-annotate-labeled-tweets.php
 cd ..
 
 
-echo "\nSTEP 5/ : MERGE NEW AND OLD TWEETS\n"
+echo "\nSTEP 5/ : MERGE NEW AND OLD TWEETS AND ADD NUMBERS\n"
 cd scripts
-php step5-merge-new-and-old-tweets.php
+#php step5-merge-new-and-old-tweets.php
+cd ..
+
+
+echo "\nSTEP 6/ : FORMAT TEST DATA\n"
+cd scripts
+#php step6-format-test-data.php
+cd ..
+
+
+echo "\nSTEP 7/ : CLEAN TEST DATA\n"
+cd scripts
+#php step7-clean-test-data.php
+cd ..
+
+echo "\nSTEP 8/ : ADD NUMBERS AND ANNOTATION TO TEST DATA\n"
+cd scripts
+php step8-add-numbers-and-annotation-to-test-data.php
 cd ..
 
 #echo "RUN ANALYSER"

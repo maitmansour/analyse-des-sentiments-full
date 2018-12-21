@@ -2,7 +2,7 @@
 
 
 // Get TWeets by file
-$tweets=getTweetsByFile("../dataset/labeled.csv");
+$tweets=getTweetsByFile("../dataset/step0-labeled.csv");
 
 //Get only messages
 $messages_array=getMessagesByTweets($tweets);
@@ -13,7 +13,7 @@ $clean_messages_text=cleanMessages($messages_array);
 
 
 // Create annoted files
-echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/clean-labeled-data.csv",$clean_messages_text);
+echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/step3-clean-labeled-data.csv",$clean_messages_text);
 
 
 

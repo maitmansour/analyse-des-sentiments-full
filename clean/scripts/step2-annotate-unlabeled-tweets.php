@@ -2,7 +2,7 @@
 
 
 // Get cleaned tweets
-$tweets=getCleanedTweets("../dataset/clean-data.csv");
+$tweets=getCleanedTweets("../dataset/step1-clean-unlabeled-data.csv");
 
 // Annotate tweets
 $annoted_tweets_array = annotateTweets($tweets);
@@ -11,7 +11,7 @@ $annoted_tweets_array = annotateTweets($tweets);
 $annoted_tweets_text = getAnnotatedTweetsAsText($annoted_tweets_array);
 
 // Create annoted tweets file
-echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/auto-annoted-data.csv",$annoted_tweets_text);
+echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/step2-auto-annoted-data.csv",$annoted_tweets_text);
 
 
 
