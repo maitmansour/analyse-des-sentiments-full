@@ -7,12 +7,12 @@ $tweets=getTweetsByFile("data/unlabeled.xml");
 //Get Annoted tweets array
 $annoted_tweets = annoterTweetsOld($tweets);
 
-$min_number_of_tweets=/*getMinCountArrays($annoted_tweets)*/0;
+$min_number_of_tweets=getMinCountArrays($annoted_tweets);
 // Get random tweets by polarity
 $data=getRandomAnnotedTweets($annoted_tweets,$min_number_of_tweets,1);
 
 // Create annoted files
-echo file_put_contents("/var/www/html/analyse-des-sentiments-full/data/labeled_old.txt",$data);
+echo file_put_contents("/var/www/html/analyse-des-sentiments-full/prediction/data/task1-train.csv",$data);
 
 
 
@@ -33,13 +33,95 @@ echo file_put_contents("/var/www/html/analyse-des-sentiments-full/data/labeled_o
 // Get polarity by Tweet
 function getPolarityByTweet($tweet)
 {
-	$negatif_words=["🚮","ridiculisation","😠","😳","🚫", "🔥","😢", "😱","😹","😠","😨","clown","#honte","#jevoteelledegage","#FHaine","#ToutSaufMacron","#hontemarine","#EnMarche","null","honteux","con","ivre","bu","😫","😭","échec","frapper","clash","invective","daesh","raciste","cougar"];
-	$positif_words=["😂","💪", "💜","💖","👏","👍","bravo","courage","positif","future","amour","espoir","chance","belle","🎺","😍","top","super","magnifique"];
+	$positif_words=["😂","💪", "💜","💖","👏","👍","bravo","courage","positif","future","amour","espoir","chance","belle","🎺","😍","top","super","magnifique","ya",
+"excellent",
+"heureusement",
+"expliquer",
+"arrogante",
+"ok",
+"arrêter",
+"plat",
+"cœur",
+"saint",
+"show",
+"caricature",
+"félicitations",
+"intellectuelle",
+"perd",
+"élections",
+"fhaine",
+"incroyable",
+"grâce",
+"connait",
+"côté",
+"venir",
+"nuit",
+"ns",
+"petit",
+"part",
+"évidemment",
+"assume",
+"cesse",
+"attaqué",
+"résume",
+"bloodysusu",
+"représente",
+"suffit",
+"analyse",
+"gouvernement",
+"choisir",
+"françois",
+"2002",
+"taire",
+"changement",
+"bizarre"];
+
+	$negatif_words=["🚮","ridiculisation","😠","😳","🚫", "🔥","😢", "😱","😹","😠","😨","clown","honte","jevoteelledegage","FHaine","ToutSaufMacron","hontemarine","EnMarche","null","honteux","con","ivre","bu","😫","😭","échec","frapper","clash","invective","daesh","raciste","cougar","travail",
+"couilles",
+"schlag",
+"totalement",
+"convaincre",
+"macronpresident",
+"tt",
+"guerre",
+"justice",
+"puisse",
+"shlag",
+"mensonge",
+"discours",
+"dupontaignan",
+"vrmt",
+"bat",
+"échec",
+"loin",
+"paris",
+"appelle",
+"électorat",
+"pouvoir",
+"totale",
+"système",
+"20",
+"preuve",
+"connais",
+"vois",
+"sort",
+"médiocre",
+"débats",
+"matin",
+"genre",
+"sauf",
+"fut",
+"fidèle",
+"invite",
+"mai",
+"unis",
+"esprit",
+"retrouver"];
 	$string=$tweet['message'];
 
-	if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
+	/*if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
 	    return 'mixte';
-	} else if (strposa($string, $negatif_words, 1)){
+	} else */if (strposa($string, $negatif_words, 1)){
 	    return 'negatif';
 	} else if (strposa($string, $positif_words, 1)){
 	    return 'positif';
@@ -60,7 +142,7 @@ function annoterTweetsOld($tweets)
 	];
 	foreach ($tweets as $key => $value) {
 		if ($polarity=getPolarityByTweet($value)) {
-			array_push($data[$polarity], "\t".$value['message']."\t".$polarity);
+			array_push($data[$polarity], "\t".stringFormatter($value['message'])."\t".$polarity);
 		}
 	}
 	// supprimer la redandance des infos
@@ -155,3 +237,19 @@ function getMinCountArrays($arrays)
 	return min($counts);
 }
 
+
+
+
+
+function stringFormatter($string){
+	//  STR TO LOWER
+	$string= strtolower($string);
+
+	// delete ponctuation
+	$string = preg_replace('/[[:punct:]]/', ' ', $string);
+
+	// Delete URL
+	$string = preg_replace('/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/', ' ', $string);
+
+	return $string;
+}
