@@ -27,64 +27,50 @@ echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
 
 
 echo "\nSTEP 2/ : ANNOTATE UNLABELED TWEETS\n"
-#php step2-annotate-unlabeled-tweets.php
+php step2-annotate-unlabeled-tweets.php
 
 
 echo "\nSTEP 3/ : CLEAN LABELED TWEETS\n"
-#php step3-clean-labeled-tweets.php
+php step3-clean-labeled-tweets.php
 
 
 
 echo "\nSTEP 4/ : ANNOTATE LABELED TWEETS\n"
-#php step4-annotate-labeled-tweets.php
+php step4-annotate-labeled-tweets.php
 
 
 
 echo "\nSTEP 5/ : MERGE NEW AND OLD TWEETS AND ADD NUMBERS\n"
-#php step5-merge-new-and-old-tweets.php
+php step5-merge-new-and-old-tweets.php
 
 
 
 echo "\nSTEP 6/ : FORMAT TEST DATA\n"
-#php step6-format-test-data.php
+php step6-format-test-data.php
 
 
 
 echo "\nSTEP 7/ : CLEAN TEST DATA\n"
-#php step7-clean-test-data.php
+php step7-clean-test-data.php
 
 
 echo "\nSTEP 8/ : ADD NUMBERS AND ANNOTATION TO TEST DATA\n"
-#php step8-add-numbers-and-annotation-to-test-data.php
+php step8-add-numbers-and-annotation-to-test-data.php
 
 echo "\nSTEP 9/ : PREPARE SVM FILES\n"
-#php step9-prepare-svm-files.php
+php step9-prepare-svm-files.php
 
 echo "\nSCRIPTS EXECUTED\n"
 cd ..
 
 echo "\nSTEP 10/ : TRAIN MODEL WITH LIBLINEAR\n"
-#libs/liblinear-2.21/train  -c 4 -e 0.1 -s 2 output/train.svm result/model
+libs/liblinear-2.21/train  -c 4 -e 0.1 -s 2 output/train.svm result/model
 
 
 echo "\nSTEP 10/ : PREDECT TEST ANNOTAION USING LIBLINEAR\n"
-#libs/liblinear-2.21/predict output/test.svm result/model result/predect
+libs/liblinear-2.21/predict output/test.svm result/model result/predect
 
 echo "\nSTEP 11/ : FORMATING PREDECTED DATA\n"
 cd scripts
 php step11-format-svm-predection.php
 cd ..
-
-#echo "RUN ANALYSER"
-#php analyser.php
-#
-#
-#echo "RUN MODEL CREATION"
-#liblinear-2.21/train  -c 4 -e 0.1 -s 2 output/train.svm result/model
-#
-#echo "RUN PREDICTION"
-#liblinear-2.21/predict output/test.svm result/model result/predect
-#
-#
-#echo "FORMAT PREDICTION"
-#php predictFormater.php 

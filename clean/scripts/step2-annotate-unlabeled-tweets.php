@@ -7,8 +7,14 @@ $tweets=getCleanedTweets("../dataset/step1-clean-unlabeled-data.csv");
 // Annotate tweets
 $annoted_tweets_array = annotateTweets($tweets);
 
+//  Get min number of tweets
+$min_number_of_tweets=getMinCountArrays($annoted_tweets_array);
+
+// Get random tweets by polarity
+$annoted_tweets_text=getRandomAnnotedTweets($annoted_tweets_array,$min_number_of_tweets,1);
+
 // Get Annotated tweets as text
-$annoted_tweets_text = getAnnotatedTweetsAsText($annoted_tweets_array);
+//$annoted_tweets_text = getAnnotatedTweetsAsText($annoted_tweets_array);
 
 // Create annoted tweets file
 echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/step2-auto-annoted-data.csv",$annoted_tweets_text);
@@ -66,6 +72,49 @@ function getAnnotatedTweetsAsText($tweets)
 
 }
 
+// Get random tweets
+function getRandomAnnotedTweets($tweets,$nboftts=1,$counter_start=1)
+{
+	if ($nboftts==0) {
+		$mixte=$tweets['mixte'];
+		$negatif=$tweets['negatif'];
+		$positif=$tweets['positif'];
+		$autre=$tweets['autre'];
+	}else{
+
+	// Get random first N Tweets
+	shuffle($tweets['mixte']);
+	$mixte = array_slice($tweets['mixte'], 0,$nboftts);
+	
+	shuffle($tweets['negatif']);
+	$negatif = array_slice($tweets['negatif'], 0,$nboftts);
+	
+	shuffle($tweets['positif']);
+	$positif = array_slice($tweets['positif'], 0,$nboftts);
+	
+	shuffle($tweets['autre']);
+	$autre = array_slice($tweets['autre'], 0,$nboftts);
+
+	}
+
+	// Merge tweets by polarity
+	$tweets_merged=array_merge($mixte,$negatif,$positif,$autre);
+
+	// Randomize tweets
+	shuffle($tweets_merged);
+
+	$text_data="";
+	foreach ($tweets_merged as $key => $value) {
+		if ($counter_start==1) {
+			$text_data.=$counter_start.$value;		
+		}else{
+			$text_data.="\n". $counter_start.$value;
+		}
+		$counter_start++;
+	}
+
+	return $text_data;
+}
 
 
 function checkExistanceBySimilarity($string,$word){
@@ -73,7 +122,7 @@ function checkExistanceBySimilarity($string,$word){
 	$percent=0;
 	foreach ($exploded_string as $key => $value) {
 		similar_text($value, $word,$percent);
-		if($percent>75)return true;
+		if($percent>60)return true;
 	}
 	return false;
 }
@@ -128,9 +177,10 @@ function getPolarityByTweet($string)
 "connait",
 "côté",
 "cesse",
-"attaqué",
+"attaqu",
 "résume",
-"changement"];
+"changement",
+"hauteur"];
 
 	$negatif_words=["🚮",
 "ridiculisation",
@@ -170,18 +220,31 @@ function getPolarityByTweet($string)
 "daesh",
 "racist",
 "cougar",
-"travail",
 "couille",
 "démotivé",
 "schlag",
 "guerre",
 "shlag",
 "mensonge",
-"discours",
 "dupontaignan",
 "bat",
 "échec",
-"médiocre"
+"médiocre",
+"poudre",
+"cour",
+"cons",
+"nul",
+"diocre",
+"flavienneuvy",
+"archi",
+"damidotvalerie",
+"hop",
+"francoisfillon",
+"fake",
+"grosse",
+"ridiculis",
+"rigol",
+"idio"
 ];
 	if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
 	    return 'mixte';
@@ -192,4 +255,10 @@ function getPolarityByTweet($string)
 	}
 
 	return 'autre';
+}
+
+function getMinCountArrays($arrays)
+{
+	$counts = array_map('count', $arrays);
+	return min($counts);
 }
