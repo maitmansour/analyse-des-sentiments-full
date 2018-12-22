@@ -197,22 +197,15 @@ function getPolarityByTweet($string)
 "😨",
 "😫",
 "😭",
-"ridiculisation",
 "malade",
 "bloodysusu",
-"clown",
 "honte",
 "assume",
-"taire",
-"bizarre",
 "jevoteelledegage",
 "haine",
-"perd",
 "ToutSaufMacron",
 "hontemarine",
-"EnMarche",
 "null",
-"honteux",
 "con",
 "ivre",
 "bu",
@@ -220,16 +213,12 @@ function getPolarityByTweet($string)
 "frapp",
 "clash",
 "invectiv",
-"daesh",
 "racist",
 "cougar",
 "couille",
-"démotivé",
 "schlag",
-"guerre",
 "shlag",
 "mensonge",
-"dupontaignan",
 "bat",
 "échec",
 "médiocre",
@@ -242,15 +231,10 @@ function getPolarityByTweet($string)
 "archi",
 "damidotvalerie",
 "hop",
-"francoisfillon",
-"fake",
 "grosse",
-"ridiculis",
 "rigol",
 "idio",
-"pas",
 "humilier",
-"mauvais",
 "pute",
 "putain",
 "encule",
@@ -264,27 +248,66 @@ function getPolarityByTweet($string)
 "abruti",
 "caca",
 "bordel",
-"insupportable",
 "peur",
-"immigration",
 "mort",
-"interrompre",
 "salir",
-"fini",
 "voile",
 "menace",
+"triste",
+];
+
+$mixte_words=[
+"ridiculisation",
+
+"clown",
+
+"taire",
+
+"bizarre",
+
+"perd",
+
+"EnMarche",
+
+"honteux",
+
+"daesh",
+
+"démotivé",
+
+"guerre",
+
+"dupontaignan",
+
+"francoisfillon",
+
+"fake",
+
+"ridiculis",
+
+"pas",
+
+"mauvais",
+
+"insupportable",
+
+"immigration",
+
+"interrompre",
+
+"fini",
+
+"regret"
 ];
 
 	if (strposa($string, $negatif_words, 1)){
 	    return 'negatif';
 	} else if (strposa($string, $positif_words, 1)){
 	    return 'positif';
-	}
-	echo $string."\n";
-	if (rand()%2==0) {
-		return 'autre';
+	}else if (strposa($string, $mixte_words, 1)){
+	    return 'mixte';
 	}else{
-			return 'mixte';
+	    return 'autre';
 	}
 }
 
