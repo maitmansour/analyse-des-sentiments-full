@@ -190,7 +190,6 @@ function getPolarityByTweet($string)
 "prouve",
 "responsable",
 "respecter",
-
 ];
 
 	$negatif_words=[
@@ -331,6 +330,9 @@ $mixte_words=[
 "interrompre",
 "fini",
 "regret",
+"macron",
+"lepen",
+"pen"
 ];
 
 	if (strposa($string, $mixte_words, 1)&&strposa($string, $positif_words, 1)){
