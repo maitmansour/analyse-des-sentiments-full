@@ -332,7 +332,9 @@ $mixte_words=[
 "regret",
 "macron",
 "lepen",
-"pen"
+"pen",
+"islamis",
+"djihadis"
 ];
 
 	if (strposa($string, $mixte_words, 1)&&strposa($string, $positif_words, 1)){
