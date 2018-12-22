@@ -352,11 +352,11 @@ $score=getStringScore($string,$data_text);
 	}
 	if ($score<-1){
 	    return 'negatif';
-	} else if ($score>=-1 && $score<2){
+	} else if ($score>=-1 && $score<1){
 	    return 'autre';
-	} else if ($score>=2&& $score<6){
+	} else if ($score>=1&& $score<5){
 	    return 'mixte';
-	} else if ($score>=6){
+	} else if ($score>=5){
 	    return 'positif';
 	}
 
