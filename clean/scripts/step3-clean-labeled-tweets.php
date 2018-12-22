@@ -128,7 +128,7 @@ $string = preg_replace("@\b[a-z]{1,2}\b@m", " ", $string);
 // delete multiple whitespaces
 $string = preg_replace('/[\s]+/mu', ' ', $string);
 
-$string=spellCheck($string);
+#$string=spellCheck($string);
 
 
 // remove articles

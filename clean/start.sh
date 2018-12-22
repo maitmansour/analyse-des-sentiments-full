@@ -22,7 +22,7 @@ echo "\nSTART EXECUTING SCRIPTS\n"
 cd scripts
 
 echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
-#php step1-clean-unlabeled-tweets.php
+php step1-clean-unlabeled-tweets.php
 
 
 
