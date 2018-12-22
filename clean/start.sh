@@ -3,26 +3,26 @@
 printf "START PREDICTION SCRIPT \n"
 
 echo "\nSTEP 0/ : DELETE OLD FILES\n"
-#rm -rf dataset/step1-clean-unlabeled-data.csv
-#rm -rf dataset/step2-auto-annoted-data.csv
-#rm -rf dataset/step3-clean-labeled-data.csv
-#rm -rf dataset/step4-already-annoted-data.csv
-#rm -rf dataset/step5-final-train-data.csv
-#rm -rf dataset/step6-unformated-test-data.csv
-#rm -rf dataset/step7-clean-test-data.csv
-#rm -rf dataset/step8-final-test-data.csv
-#rm -rf output/test.svm
-#rm -rf output/train.svm
-#rm -rf output/model
-#rm -rf output/predect
-#rm -rf result/result.txt
+rm -rf dataset/step1-clean-unlabeled-data.csv
+rm -rf dataset/step2-auto-annoted-data.csv
+rm -rf dataset/step3-clean-labeled-data.csv
+rm -rf dataset/step4-already-annoted-data.csv
+rm -rf dataset/step5-final-train-data.csv
+rm -rf dataset/step6-unformated-test-data.csv
+rm -rf dataset/step7-clean-test-data.csv
+rm -rf dataset/step8-final-test-data.csv
+rm -rf output/test.svm
+rm -rf output/train.svm
+rm -rf output/model
+rm -rf output/predect
+rm -rf result/result.txt
 
 
 echo "\nSTART EXECUTING SCRIPTS\n"
 cd scripts
 
 echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
-#php step1-clean-unlabeled-tweets.php
+php step1-clean-unlabeled-tweets.php
 
 
 

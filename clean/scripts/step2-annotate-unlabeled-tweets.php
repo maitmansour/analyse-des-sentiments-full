@@ -102,17 +102,7 @@ function getRandomAnnotedTweets($tweets,$nboftts=1,$counter_start=1)
 
 	// Randomize tweets
 	shuffle($tweets_merged);
-
-	$text_data="";
-	foreach ($tweets_merged as $key => $value) {
-		if ($counter_start==1) {
-			$text_data.=$counter_start.$value;		
-		}else{
-			$text_data.="\n". $counter_start.$value;
-		}
-		$counter_start++;
-	}
-
+	$text_data=implode("\n", $tweets_merged);
 	return $text_data;
 }
 
@@ -122,7 +112,7 @@ function checkExistanceBySimilarity($string,$word){
 	$percent=0;
 	foreach ($exploded_string as $key => $value) {
 		similar_text($value, $word,$percent);
-		if($percent>60)return true;
+		if($percent>70)return true;
 	}
 	return false;
 }
@@ -180,7 +170,11 @@ function getPolarityByTweet($string)
 "attaqu",
 "résume",
 "changement",
-"hauteur"];
+"hauteur",
+"confiance",
+"aimer",
+"joie",
+"merci"];
 
 	$negatif_words=["🚮",
 "ridiculisation",
@@ -244,7 +238,24 @@ function getPolarityByTweet($string)
 "grosse",
 "ridiculis",
 "rigol",
-"idio"
+"idio",
+"pas",
+"humilier",
+"mauvais",
+"pute",
+"putain",
+"encule",
+"connard",
+"salope",
+"merde",
+"cul",
+"batard",
+"connasse",
+"enfoire",
+"abruti",
+"caca",
+"bordel",
+"insupportable"
 ];
 	if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
 	    return 'mixte';
