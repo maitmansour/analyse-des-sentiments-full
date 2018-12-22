@@ -120,10 +120,16 @@ function checkExistanceBySimilarity($string,$word){
 // Check if one words is on string (array) and check similarity
 function strposa($string, $words=array(), $offset=0) {
         $chr = array();
+        //check by simlarity
         foreach($words as $word) {
                 $res = checkExistanceBySimilarity($string,$word);
                 if ($res !== false) $chr[$word] = $res;
         }
+        // check exist
+        /*foreach($words as $word) {
+                $res = strpos($string, $word, $offset);
+                if ($res !== false) $chr[$word] = $res;
+        }*/
         if(empty($chr)) return false;
         return min($chr);
 }
@@ -134,10 +140,13 @@ function getPolarityByTweet($string)
 {
 	$positif_words=[
 "😂",
-"💪", "💜",
+"💪", 
+"💜",
 "💖",
 "👏",
 "👍",
+"🎺",
+"😍",
 "bravo",
 "courage",
 "positif",
@@ -146,8 +155,6 @@ function getPolarityByTweet($string)
 "chance",
 "belle",
 "beau",
-"🎺",
-"😍",
 "top",
 "super",
 "magnifique",
@@ -174,10 +181,11 @@ function getPolarityByTweet($string)
 "confiance",
 "aimer",
 "joie",
-"merci"];
+"merci"
+];
 
-	$negatif_words=["🚮",
-"ridiculisation",
+	$negatif_words=[
+"🚮",
 "😠",
 "😳",
 "🚫", 
@@ -187,6 +195,9 @@ function getPolarityByTweet($string)
 "😹",
 "😠",
 "😨",
+"😫",
+"😭",
+"ridiculisation",
 "malade",
 "bloodysusu",
 "clown",
@@ -205,8 +216,6 @@ function getPolarityByTweet($string)
 "con",
 "ivre",
 "bu",
-"😫",
-"😭",
 "échec",
 "frapp",
 "clash",
@@ -266,15 +275,17 @@ function getPolarityByTweet($string)
 "menace",
 ];
 
-	if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
-	    return 'mixte';
-	} else if (strposa($string, $negatif_words, 1)){
+	if (strposa($string, $negatif_words, 1)){
 	    return 'negatif';
 	} else if (strposa($string, $positif_words, 1)){
 	    return 'positif';
 	}
-
-	return 'autre';
+	echo $string."\n";
+	if (rand()%2==0) {
+		return 'autre';
+	}else{
+			return 'mixte';
+	}
 }
 
 function getMinCountArrays($arrays)
