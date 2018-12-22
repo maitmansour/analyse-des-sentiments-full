@@ -255,7 +255,8 @@ function getPolarityByTweet($string)
 "abruti",
 "caca",
 "bordel",
-"insupportable"
+"insupportable",
+"peur"
 ];
 	if ((strposa($string, $negatif_words, 1))&&(strposa($string, $positif_words, 1))) {
 	    return 'mixte';
