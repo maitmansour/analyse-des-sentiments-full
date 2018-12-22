@@ -137,6 +137,7 @@ $string=str_replace($articles," ", $string);
 // Remove bgining whitespaces
 $string = ltrim($string);
 
+#$string=substrSentence($string);
 	return $string;
 }
 
@@ -171,9 +172,20 @@ function spellCheck($string)
 	foreach ($words as $key => $word) {
 		if (!pspell_check($pspell_link, $word)) {
 		     unset($words[$key]);
-		}
+		}/*else{
+		$words[$key]=substr($word, 0,5);
+		}*/
 	}
 
 	return implode(" ", $words);
 
+}
+
+
+function substrSentence($string){
+	$words=explode(" ", $string);
+	foreach ($words as $key => $word) {
+		$words[$key]=substr($word, 0,5);
+	}
+	return implode(" ", $words);
 }
