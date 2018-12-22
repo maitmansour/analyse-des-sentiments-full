@@ -11,7 +11,7 @@ $annoted_tweets_array = annotateTweets($tweets);
 $min_number_of_tweets=getMinCountArrays($annoted_tweets_array);
 
 // Get random tweets by polarity
-$annoted_tweets_text=getRandomAnnotedTweets($annoted_tweets_array,$min_number_of_tweets,1);
+$annoted_tweets_text=getRandomAnnotedTweets($annoted_tweets_array,0/*$min_number_of_tweets*/,1);
 
 // Get Annotated tweets as text
 //$annoted_tweets_text = getAnnotatedTweetsAsText($annoted_tweets_array);
@@ -258,56 +258,38 @@ function getPolarityByTweet($string)
 
 $mixte_words=[
 "ridiculisation",
-
 "clown",
-
 "taire",
-
 "bizarre",
-
 "perd",
-
 "EnMarche",
-
 "honteux",
-
 "daesh",
-
 "démotivé",
-
 "guerre",
-
 "dupontaignan",
-
 "francoisfillon",
-
 "fake",
-
 "ridiculis",
-
 "pas",
-
 "mauvais",
-
 "insupportable",
-
 "immigration",
-
 "interrompre",
-
 "fini",
-
-"regret"
+"regret",
 ];
 
-	if (strposa($string, $negatif_words, 1)){
-	    return 'negatif';
+	if (strposa($string, $mixte_words, 1)&&strposa($string, $positif_words, 1)){
+	    return 'mixte';
+	} else if (strposa($string, $negatif_words, 1)&&strposa($string, $positif_words, 1)){
+	    return 'mixte';
 	} else if (strposa($string, $positif_words, 1)){
 	    return 'positif';
-	}else if (strposa($string, $mixte_words, 1)){
-	    return 'mixte';
-	}else{
+	}else if ((!strposa($string, $mixte_words, 1))&&(!strposa($string, $negatif_words, 1))&&(!strposa($string, $positif_words, 1))){
 	    return 'autre';
+	}else{
+	    return 'negatif';
 	}
 }
 
