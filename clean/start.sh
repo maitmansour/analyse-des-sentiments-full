@@ -22,12 +22,12 @@ echo "\nSTART EXECUTING SCRIPTS\n"
 cd scripts
 
 echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
-#php step1-clean-unlabeled-tweets.php
+php step1-clean-unlabeled-tweets.php
 
 
 
 echo "\nSTEP 2/ : ANNOTATE UNLABELED TWEETS\n"
-#php step2-annotate-unlabeled-tweets.php
+php step2-annotate-unlabeled-tweets.php
 
 
 echo "\nSTEP 3/ : CLEAN LABELED TWEETS\n"
