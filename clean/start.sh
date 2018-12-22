@@ -3,8 +3,8 @@
 printf "START PREDICTION SCRIPT \n"
 
 echo "\nSTEP 0/ : DELETE OLD FILES\n"
-#rm -rf dataset/step1-clean-unlabeled-data.csv
-#rm -rf dataset/step2-auto-annoted-data.csv
+rm -rf dataset/step1-clean-unlabeled-data.csv
+rm -rf dataset/step2-auto-annoted-data.csv
 rm -rf dataset/step3-clean-labeled-data.csv
 rm -rf dataset/step4-already-annoted-data.csv
 rm -rf dataset/step5-final-train-data.csv
@@ -22,7 +22,7 @@ echo "\nSTART EXECUTING SCRIPTS\n"
 cd scripts
 
 echo "\nSTEP 1/ : CLEAN UNLABELED TWEETS\n"
-#php step1-clean-unlabeled-tweets.php
+php step1-clean-unlabeled-tweets.php
 
 
 

@@ -1,11 +1,19 @@
 <?php
 
+$data_scores=file_get_contents("../result/neg.txt");
+$data_scores=explode("\n", $data_scores);
+
+$data_text=[];
+foreach ($data_scores as $key => $value) {
+	$tmp=explode("\t", $value);
+	$data_text[$tmp[0]]=intval($tmp[1]);
+}
 
 // Get cleaned tweets
 $tweets=getCleanedTweets("../dataset/step1-clean-unlabeled-data.csv");
 
 // Annotate tweets
-$annoted_tweets_array = annotateTweets($tweets);
+$annoted_tweets_array = annotateTweets($tweets,$data_text);
 
 //  Get min number of tweets
 $min_number_of_tweets=getMinCountArrays($annoted_tweets_array);
@@ -34,7 +42,7 @@ echo file_put_contents("/var/www/html/analyse-des-sentiments-full/clean/dataset/
 
 
 // Annotate Tweets
-function annotateTweets($tweets)
+function annotateTweets($tweets,$data_text)
 {
 	$data=[
 		"mixte"=>[],
@@ -43,7 +51,7 @@ function annotateTweets($tweets)
 		"autre"=>[],
 	];
 	foreach ($tweets as $key => $value) {
-		if ($polarity=getPolarityByTweet($value)) {
+		if ($polarity=getPolarityByTweet($value,$data_text)) {
 			array_push($data[$polarity], $value."\t".$polarity);
 		}
 	}
@@ -136,9 +144,9 @@ function strposa($string, $words=array(), $offset=0) {
 
 
 // Get polarity by Tweet
-function getPolarityByTweet($string)
+function getPolarityByTweet($string,$data_text)
 {
-	$positif_words=[
+	/*$positif_words=[
 "😂",
 "💪", 
 "💜",
@@ -336,22 +344,38 @@ $mixte_words=[
 "islamis",
 "djihadis"
 ];
-
-	if (strposa($string, $mixte_words, 1)&&strposa($string, $positif_words, 1)){
-	    return 'mixte';
-	} else if (strposa($string, $negatif_words, 1)&&strposa($string, $positif_words, 1)){
-	    return 'mixte';
-	} else if (strposa($string, $positif_words, 1)){
-	    return 'positif';
-	}else if ((!strposa($string, $mixte_words, 1))&&(!strposa($string, $negatif_words, 1))&&(!strposa($string, $positif_words, 1))){
+*/
+//echo $string."     ". getStringScore($string,$data_text); die;
+$score=getStringScore($string,$data_text);
+if ($score==0) {
 	    return 'autre';
-	}else{
+}else{
+		if ($score<0){
 	    return 'negatif';
+	} else if ($score>0 && $score<=2){
+	    return 'mixte';
+	} else if ($score>2){
+	    return 'positif';
 	}
+}
+
 }
 
 function getMinCountArrays($arrays)
 {
 	$counts = array_map('count', $arrays);
 	return min($counts);
+}
+
+
+function getStringScore($string,$data_text)
+{
+	$words=explode(" ", $string);
+	$somme=0;
+	foreach ($words as $key => $word) {
+		if (array_key_exists($word,$data_text)) {
+			$somme+=$data_text[$word];
+		}
+	}
+	return $somme;
 }
