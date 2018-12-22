@@ -350,9 +350,9 @@ $score=getStringScore($string,$data_text);
 	if ($score==0) {
 		return "autre";
 	}
-	if ($score<1){
+	if ($score<-1){
 	    return 'negatif';
-	} else if ($score>=1 && $score<2){
+	} else if ($score>=-1 && $score<2){
 	    return 'autre';
 	} else if ($score>=2&& $score<6){
 	    return 'mixte';
