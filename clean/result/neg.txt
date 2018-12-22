@@ -131,6 +131,8 @@ banni	-4
 bonne	affaire	4
 barrière	-4
 bâtard	-20
+batard	-20
+batards	-20
 bâtards	-20
 bataille	-2
 batailles	-2
@@ -144,6 +146,7 @@ trahison	-6
 mieux	4
 grand	2
 chienne	-20
+chien	-20
 chiennes	-20
 bizarre	-4
 bla	-4
