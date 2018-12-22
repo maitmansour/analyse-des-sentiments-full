@@ -112,7 +112,7 @@ function checkExistanceBySimilarity($string,$word){
 	$percent=0;
 	foreach ($exploded_string as $key => $value) {
 		similar_text($value, $word,$percent);
-		if($percent>79)return true;
+		if($percent>78)return true;
 	}
 	return false;
 }
