@@ -182,7 +182,9 @@ function getPolarityByTweet($string)
 "aimer",
 "joie",
 "merci",
-"calme"
+"calme",
+"adore",
+"felicitations"
 ];
 
 	$negatif_words=[
@@ -263,7 +265,25 @@ function getPolarityByTweet($string)
 "contre",
 "folle",
 "indigne",
-"parasite"
+"parasite",
+"gueule",
+"pathetique",
+"crise",
+"insulter",
+"menteuse",
+"ridiculisee",
+"lecon",
+"abstentionnistes",
+"debile",
+"pleurer",
+"couilles",
+"ptdr",
+"responsable",
+"marre",
+"connerie",
+"vulgarite",
+"respecter",
+"agressivite",
 ];
 
 $mixte_words=[
