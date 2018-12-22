@@ -347,17 +347,18 @@ $mixte_words=[
 */
 //echo $string."     ". getStringScore($string,$data_text); die;
 $score=getStringScore($string,$data_text);
-if ($score==0) {
-	    return 'autre';
-}else{
-		if ($score<0){
+	if ($score==0) {
+		return "autre";
+	}
+	if ($score<1){
 	    return 'negatif';
-	} else if ($score>0 && $score<=2){
+	} else if ($score>=1 && $score<2){
+	    return 'autre';
+	} else if ($score>=2&& $score<6){
 	    return 'mixte';
-	} else if ($score>2){
+	} else if ($score>=6){
 	    return 'positif';
 	}
-}
 
 }
 
@@ -371,11 +372,27 @@ function getMinCountArrays($arrays)
 function getStringScore($string,$data_text)
 {
 	$words=explode(" ", $string);
+	$scores_words=array_keys($data_text);
 	$somme=0;
+	//$tmp_score=0;
 	foreach ($words as $key => $word) {
 		if (array_key_exists($word,$data_text)) {
-			$somme+=$data_text[$word];
+			$tmp_score=$data_text[$word];
+			$somme+=$tmp_score;
 		}
+
+		/*if ($tmp_score==0) {
+			foreach ($scores_words as $key => $value) {
+					similar_text($value, $word,$percent);
+					if($percent>60){
+						$tmp_score=$data_text[$scores_words[$key]];
+						$somme+=$tmp_score;
+						break;
+					}
+			}
+	}*/
+
 	}
+
 	return $somme;
 }
