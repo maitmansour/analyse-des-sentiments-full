@@ -146,7 +146,7 @@ function strposa($string, $words=array(), $offset=0) {
 // Get polarity by Tweet
 function getPolarityByTweet($string,$data_text)
 {
-	/*$positif_words=[
+	$positif_words=[
 "😂",
 "💪", 
 "💜",
@@ -344,11 +344,16 @@ $mixte_words=[
 "islamis",
 "djihadis"
 ];
-*/
+
 //echo $string."     ". getStringScore($string,$data_text); die;
 $score=getStringScore($string,$data_text);
 	if ($score==0) {
-		return "autre";
+			if ((!strposa($string, $mixte_words, 1))&&(!strposa($string, $negatif_words, 1))&&(!strposa($string, $positif_words, 1))){
+	    return 'autre';
+	}else{
+	    return 'negatif';
+	}
+
 	}
 	if ($score<-1){
 	    return 'negatif';

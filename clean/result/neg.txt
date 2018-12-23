@@ -1297,7 +1297,7 @@ mine	-4
 sapé	-4
 sapant	-4
 mal	à	l'aise	-4
-chômage	-4
+chomage	-20
 contraire	à	l'éthique	-4
 malheureux	-4
 pas	impressionné	-4
