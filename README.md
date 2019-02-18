@@ -1,5 +1,4 @@
-
-# DistributedPlayer-Server
+# Sentiment Analysis (Tweets)
 
 ## Authors
 - AIT MANSOUR Mohamed.
